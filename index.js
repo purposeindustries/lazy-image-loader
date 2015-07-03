@@ -9,17 +9,29 @@
 
 }(function () {
 
+  function getSample(items, i) {
+    i = i || 0;
+
+    if (i > items.length - 1) {
+      return null;
+    }
+
+    var item = items[i];
+    sample = item.getBoundingClientRect();
+    if (!sample.width) {
+      return getSample(items, ++i);
+    }
+    return sample;
+  }
+
   return function init(host) {
 
     var items = [].slice.call(document.querySelectorAll('.lazy-image'));
     var len = items.length;
     var sample;
+    var sample = getSample(items);
 
     items.forEach(function (item) {
-
-      if (!sample) {
-        sample = item.getBoundingClientRect();
-      }
 
       var path = item.getAttribute('data-path');
       var img = document.createElement('img');
