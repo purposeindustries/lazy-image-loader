@@ -36,7 +36,7 @@
 
       var path = item.getAttribute('data-path');
       var img = document.createElement('img');
-      img.src = (url() || host + '/' + Math.round(sample.width) + '/') + path;
+      img.src = (url() || host + '/' + Math.round(sample.width)) + path;
 
       item.appendChild(img);
 
