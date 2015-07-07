@@ -24,8 +24,9 @@
     return sample;
   }
 
-  return function init(host) {
-
+  return function init(host, options) {
+    options = options || {};
+    var url = (typeof options.url === 'function') ? options.url : function () {};
     var items = [].slice.call(document.querySelectorAll('.lazy-image'));
     var len = items.length;
     var sample;
@@ -35,7 +36,7 @@
 
       var path = item.getAttribute('data-path');
       var img = document.createElement('img');
-      img.src = host + '/' + Math.round(sample.width) + '/' + path;
+      img.src = (url() || host + '/' + Math.round(sample.width) + '/') + path;
 
       item.appendChild(img);
 
