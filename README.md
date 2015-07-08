@@ -10,8 +10,6 @@ It tries to calculate the width of the parent element and set the following url 
 So, for example if the width of the parent element is 400px, the url becomes:
 http://example.com/400/path/to/your/image.jpg
 
-/:
-
 ```html
 <div class="lazy-image" data-path="/path/to/your/image.jpg"></div>
 
