@@ -1,5 +1,5 @@
 {
-  "name": "@pi/lazy-image-loader",
+  "name": "lazy-image-loader",
   "version": "1.1.2",
   "description": "Async image loading to decrease initial load time",
   "main": "index.js",
@@ -10,8 +10,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ruff",
-  "license": "ISC",
-  "publishConfig": {
-    "repository": "https://npm.registry.purposeindustries.co"
-  }
+  "license": "ISC"
 }
