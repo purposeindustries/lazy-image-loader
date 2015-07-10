@@ -1,3 +1,7 @@
 .npmignore
 .npmrc
 example
+node_modules
+.gitignore
+.eslintrc
+test

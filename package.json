@@ -7,11 +7,14 @@
     "example": "example"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "npm run lint && mocha",
+    "lint": "eslint ."
   },
   "author": "ruffle1986",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^0.24.0",
+    "jsdom": "^5.6.0",
     "mocha": "^2.2.5",
     "should": "^7.0.2"
   }
