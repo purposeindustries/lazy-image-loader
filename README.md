@@ -1,4 +1,4 @@
-# Lazy Image Loader
+# Lazy Image Loader [![Build Status](https://travis-ci.org/purposeindustries/lazy-image-loader.svg)](https://travis-ci.org/purposeindustries/lazy-image-loader)
 
 > Parses the DOM and looks for elements to load images in a deferred manner.
 
@@ -76,6 +76,8 @@ browser:
 ## Options
 
 - `url` (Function) - You can set your own url getter function. It gets two parameters: `width` and `path`.
+- `className` (String) - custom css class selector instead of `.lazy-image`
+- `pathAttribure` (String) - custom html attribute name instead of `data-path`
 
 ## License
 
