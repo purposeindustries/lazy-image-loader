@@ -1,4 +1,5 @@
-# Lazy Image Loader [![Build Status](https://travis-ci.org/purposeindustries/lazy-image-loader.svg)](https://travis-ci.org/purposeindustries/lazy-image-loader)
+# Lazy Image Loader 
+[![Build Status](https://travis-ci.org/purposeindustries/lazy-image-loader.svg)](https://travis-ci.org/purposeindustries/lazy-image-loader) [![Code Climate](https://codeclimate.com/github/purposeindustries/lazy-image-loader/badges/gpa.svg)](https://codeclimate.com/github/purposeindustries/lazy-image-loader)
 
 > Parses the DOM and looks for elements to load images in a deferred manner.
 
