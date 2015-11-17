@@ -64,7 +64,7 @@
       if (findAndReplace) {
         var imgToBeReplaced = item.querySelector('img');
         if (imgToBeReplaced) {
-          imgToBeReplaced.outerHTML = '<img src="' + src + '" />';
+          imgToBeReplaced.src = src;
         }
       } else {
         var img = document.createElement('img');
