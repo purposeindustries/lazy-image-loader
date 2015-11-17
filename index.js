@@ -52,16 +52,25 @@
       function (width, path) {
         return host + '/' + width + path;
       };
+    var findAndReplace = !!options.findAndReplace;
     var items = [].slice.call(document.querySelectorAll(className));
     var sample = getSample(items);
 
     items.forEach(function (item) {
 
       var path = item.getAttribute(pathAttr);
-      var img = document.createElement('img');
-      img.src = url(Math.round(sample.width), path);
+      var src = url(Math.round(sample.width), path);
 
-      item.appendChild(img);
+      if (findAndReplace) {
+        var imgToBeReplaced = item.querySelector('img');
+        if (imgToBeReplaced) {
+          imgToBeReplaced.outerHTML = '<img src="' + src + '" />';
+        }
+      } else {
+        var img = document.createElement('img');
+        img.src = src;
+        item.appendChild(img);
+      }
 
     });
 
