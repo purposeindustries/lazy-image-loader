@@ -1,5 +1,9 @@
 'use strict';
 
+var vportHelper = require('verge');
+var listen = require('event-listener');
+var throttle = require('lodash.throttle');
+
 (function (factory) {
 
   if (typeof exports !== 'undefined') {
@@ -36,9 +40,38 @@
     return sample;
   }
 
+  function handleItem(item, options) {
+    options = options || {};
+    var url = options.url;
+    var pathAttr = options.pathAttribute || 'data-path';
+    var sample = options.sample;
+    var findAndReplace = options.findAndReplace;
+    var path = item.getAttribute(pathAttr);
+    var src = url(Math.round(sample.width), path);
+    item.$$lazyHandled$$ = true;
+    if (findAndReplace) {
+      var imgToBeReplaced = item.querySelector('img');
+      if (imgToBeReplaced) {
+        imgToBeReplaced.src = src;
+        return;
+      }
+    }
+    var img = document.createElement('img');
+    img.src = src;
+    item.appendChild(img);
+  }
+
+  function handleItems(items, filter, options) {
+    if (typeof filter === 'function') {
+      items = items.filter(filter);
+    }
+    items
+      .forEach(function (item) {
+        handleItem(item, options);
+      });
+  }
+
   /**
-   * Parses all the lazy elements and generates <img> tags with src.
-   *
    * @param  {String} host - The host where the images come from
    * @param  {Object} [options={}] - options object
    * @return {void}
@@ -46,33 +79,35 @@
   return function init(host, options) {
     options = options || {};
     var className = options.className || '.lazy-image';
-    var pathAttr = options.pathAttribute || 'data-path';
-    var url = (typeof options.url === 'function') ?
-      options.url :
-      function (width, path) {
-        return host + '/' + width + path;
-      };
-    var findAndReplace = !!options.findAndReplace;
+    var onlyInViewPort = !!options.onlyInViewPort;
     var items = [].slice.call(document.querySelectorAll(className));
-    var sample = getSample(items);
 
-    items.forEach(function (item) {
+    options.url = options.url || function (width, path) {
+      return host + '/' + width + path;
+    };
 
-      var path = item.getAttribute(pathAttr);
-      var src = url(Math.round(sample.width), path);
+    options.sample = getSample(items);
 
-      if (findAndReplace) {
-        var imgToBeReplaced = item.querySelector('img');
-        if (imgToBeReplaced) {
-          imgToBeReplaced.src = src;
-        }
-      } else {
-        var img = document.createElement('img');
-        img.src = src;
-        item.appendChild(img);
+    function filterForScroll(item) {
+      return vportHelper.inY(item) && !item.$$lazyHandled$$;
+    }
+
+    function filterForInit(item) {
+      return !onlyInViewPort || vportHelper.inY(item);
+    }
+
+    if (onlyInViewPort) {
+      var scrollListener = listen(window, 'scroll resize orientationchange',
+        throttle(function () {
+          handleItems(items, filterForScroll, options);
+      }, 200));
+    }
+    handleItems(items, filterForInit, options);
+
+    return function () {
+      if (scrollListener) {
+        scrollListener.remove();
       }
-
-    });
-
+    };
   };
 }));

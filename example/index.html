@@ -5,29 +5,44 @@
   <title>Lazy Image Loader</title>
   <style>
     body {
-      -webkit-column-count: 3;
+      margin: 0;
     }
     .lazy-image {
-      width: 100%;
+      display: block;
+      float: left;
+      width: 400px;
+      height: 200px;
     }
     .lazy-image img {
-      width: 100%;
+      display: block
     }
+    .cf:before,
+    .cf:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden;
+    }
+    .cf:after {clear: both;}
+    .cf {zoom: 1;} /* IE < 8 */
   </style>
 </head>
 <body>
 
-<div class="lazy-image" data-path="/41154/cover.jpg"></div>
-<div class="lazy-image" data-path="/41154/cover.jpg"></div>
-<div class="lazy-image" data-path="/41154/cover.jpg"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/sports"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/cats"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/city"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/people"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/food"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/nature"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/fashion"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/technics"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/business"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/transport"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/animals"></div>
+<div class="lazy-image" data-path="http://lorempixel.com/400/200/nightlife"></div>
+<div class="cf"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
-<script src="../index.js"></script>
-<script>
-  $(document).ready(function () {
-    LazyImageLoader('http://localhost:3000');
-  });
-</script>
+<script src="bundle.js"></script>
 </body>
 </html>
