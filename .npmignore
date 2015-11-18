@@ -1,10 +1,8 @@
 example
-node_modules
 test
 .eslintignore
 .eslintrc
 .gitignore
 .npmignore
 .travis.yml
-index.js
 README.md
