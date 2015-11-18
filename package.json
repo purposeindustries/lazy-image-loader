@@ -1,6 +1,6 @@
 {
   "name": "lazy-image-loader",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Async image loading to decrease initial load time.",
   "repository": "purposeindustries/lazy-image-loader",
   "main": "index.js",
