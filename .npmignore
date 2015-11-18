@@ -1,7 +1,10 @@
-.npmignore
-.npmrc
 example
 node_modules
-.gitignore
-.eslintrc
 test
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+.travis.yml
+index.js
+README.md

@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "description": "Async image loading to decrease initial load time.",
   "repository": "purposeindustries/lazy-image-loader",
-  "main": "dist/index.js",
+  "main": "index.js",
   "directories": {
     "example": "example"
   },
