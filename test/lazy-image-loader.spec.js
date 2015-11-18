@@ -3,7 +3,7 @@
 var jsdom = require('jsdom');
 var fs = require('fs');
 var fixture = fs.readFileSync('./test/fixture.html');
-var lazy = require('..');
+var lazy = require('../index');
 
 describe('lazy-image-loader', function () {
 
