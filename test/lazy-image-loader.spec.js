@@ -4,6 +4,7 @@ var jsdom = require('jsdom');
 var fs = require('fs');
 var fixture = fs.readFileSync('./test/fixture.html');
 var lazy = require('../index');
+var sinon = require('sinon');
 
 describe('lazy-image-loader', function () {
 
@@ -58,5 +59,17 @@ describe('lazy-image-loader', function () {
     var imgs = document.querySelectorAll('img');
     imgs.length.should.equal(1);
     imgs[0].getAttribute('src').should.equal('http://example.com/0/bar');
+  });
+
+  it('should handle the `on before set` hook', function () {
+    var onBeforeSet = sinon.spy();
+    lazy('http://example.com', {
+      onBeforeSet: onBeforeSet
+    });
+    var imgs = document.querySelectorAll('img');
+    onBeforeSet.args.length.should.equal(3);
+    onBeforeSet.args[0][0].should.equal(imgs[0]);
+    onBeforeSet.args[1][0].should.equal(imgs[1]);
+    onBeforeSet.args[2][0].should.equal(imgs[2]);
   });
 });
