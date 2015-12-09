@@ -4,6 +4,8 @@ var vportHelper = require('verge');
 var listen = require('event-listener');
 var throttle = require('lodash.throttle');
 
+function noop() {}
+
 (function (factory) {
 
   if (typeof exports !== 'undefined') {
@@ -46,17 +48,22 @@ var throttle = require('lodash.throttle');
     var pathAttr = options.pathAttribute || 'data-path';
     var sample = options.sample;
     var findAndReplace = options.findAndReplace;
+    var onBeforeSet = typeof options.onBeforeSet === 'function'
+      ? options.onBeforeSet
+      : noop;
     var path = item.getAttribute(pathAttr);
     var src = url(Math.round(sample.width), path);
     item.$$lazyHandled$$ = true;
     if (findAndReplace) {
       var imgToBeReplaced = item.querySelector('img');
       if (imgToBeReplaced) {
+        onBeforeSet(imgToBeReplaced);
         imgToBeReplaced.src = src;
         return;
       }
     }
     var img = document.createElement('img');
+    onBeforeSet(img);
     img.src = src;
     item.appendChild(img);
   }
