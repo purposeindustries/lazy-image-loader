@@ -46,13 +46,13 @@ function noop() {}
     options = options || {};
     var url = options.url;
     var pathAttr = options.pathAttribute || 'data-path';
-    var sample = options.sample;
+    var sample = options.sample || {};
     var findAndReplace = options.findAndReplace;
     var onBeforeSet = typeof options.onBeforeSet === 'function'
       ? options.onBeforeSet
       : noop;
     var path = item.getAttribute(pathAttr);
-    var src = url(Math.round(sample.width), path);
+    var src = url(Math.round(sample.width || item.clientWidth || 0), path);
     item.$$lazyHandled$$ = true;
     if (findAndReplace) {
       var imgToBeReplaced = item.querySelector('img');
@@ -88,12 +88,17 @@ function noop() {}
     var className = options.className || '.lazy-image';
     var onlyInViewPort = !!options.onlyInViewPort;
     var items = [].slice.call(document.querySelectorAll(className));
+    var useSampling = typeof options.useSampling !== 'undefined'
+      ? options.useSampling
+      : true;
 
     options.url = options.url || function (width, path) {
       return host + '/' + width + path;
     };
 
-    options.sample = getSample(items);
+    if (useSampling) {
+      options.sample = getSample(items);
+    }
 
     function filterForScroll(item) {
       return vportHelper.inY(item) && !item.$$lazyHandled$$;
