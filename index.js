@@ -44,14 +44,18 @@ function noop() {}
 
   function handleItem(item, options) {
     options = options || {};
-    var url = options.url;
     var pathAttr = options.pathAttribute || 'data-path';
+    var hostAttr = options.hostAttribute || 'data-host';
+    var host = item.getAttribute(hostAttr) || options.host;
     var sample = options.sample || {};
     var findAndReplace = options.findAndReplace;
     var onBeforeSet = typeof options.onBeforeSet === 'function'
       ? options.onBeforeSet
       : noop;
     var path = item.getAttribute(pathAttr);
+    var url = options.url || function (width, p) {
+      return host + '/' + width + p;
+    };
     var src = url(Math.round(sample.width || item.clientWidth || 0), path);
     item.$$lazyHandled$$ = true;
     if (findAndReplace) {
@@ -92,9 +96,7 @@ function noop() {}
       ? options.useSampling
       : true;
 
-    options.url = options.url || function (width, path) {
-      return host + '/' + width + path;
-    };
+    options.host = host;
 
     if (useSampling) {
       options.sample = getSample(items);

@@ -72,4 +72,22 @@ describe('lazy-image-loader', function () {
     onBeforeSet.args[1][0].should.equal(imgs[1]);
     onBeforeSet.args[2][0].should.equal(imgs[2]);
   });
+
+  it('should be able to get host from items` data attribute', function () {
+    lazy(null, {
+      className: '.lazy-custom-host-attr'
+    });
+    var imgs = document.querySelectorAll('img');
+    imgs.length.should.equal(1);
+    imgs[0].getAttribute('src').should.equal('http://foo.bar/0/baz');
+  });
+
+  it('should prefer host from html attr over getting it from constructor', function () {
+    lazy('http://example.com', {
+      className: '.lazy-custom-host-attr'
+    });
+    var imgs = document.querySelectorAll('img');
+    imgs[0].getAttribute('src').should.not.equal('http://example.com/0/baz');
+    imgs[0].getAttribute('src').should.equal('http://foo.bar/0/baz');
+  });
 });
