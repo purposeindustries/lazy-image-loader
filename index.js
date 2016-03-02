@@ -3,6 +3,7 @@
 var vportHelper = require('verge');
 var listen = require('event-listener');
 var throttle = require('lodash.throttle');
+var fileExtension = require('file-extension');
 
 function noop() {}
 
@@ -57,6 +58,12 @@ function noop() {}
       return host + '/' + width + p;
     };
     var src = url(Math.round(sample.width || item.clientWidth || 0), path);
+    var blacklist = options.blacklist || [];
+
+    if (blacklist.indexOf(fileExtension(src)) !== -1) {
+      return;
+    }
+
     item.$$lazyHandled$$ = true;
     if (findAndReplace) {
       var imgToBeReplaced = item.querySelector('img');
@@ -96,7 +103,7 @@ function noop() {}
       ? options.useSampling
       : true;
 
-    options.host = host;
+    options.host = host || options.host;
 
     if (useSampling) {
       options.sample = getSample(items);
