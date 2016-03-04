@@ -90,4 +90,16 @@ describe('lazy-image-loader', function () {
     imgs[0].getAttribute('src').should.not.equal('http://example.com/0/baz');
     imgs[0].getAttribute('src').should.equal('http://foo.bar/0/baz');
   });
+
+  it('should respect the blacklist option', function () {
+    lazy('http://foo.bar', {
+      blacklist: ['gif', 'jpg'],
+      className: '.lazy-blacklist'
+    });
+    var imgs = document.querySelectorAll('.lazy-blacklist img');
+
+    imgs.length.should.equal(1);
+    imgs[0].getAttribute('src').should.equal('http://foo.bar/0/path/to/image.png');
+
+  });
 });
